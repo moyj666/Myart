@@ -36,3 +36,154 @@ body {
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
     background: #ff8e8e;
 }
+/* 计数器容器样式*/
+.counter-container{
+    text-align: center;
+    margin: 2rem auto;
+    padding: 1.5rem;
+    background: white;
+    border-radius: 8px;
+    max-width: 300px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 阴影效果 */
+}
+
+/* 按钮样式 */
+#counter-btn {
+    padding: 0.5rem 1rem;    /* 内边距 */
+    background: #6e8efb;      /* 背景色 */
+    color: white;            /* 文字颜色 */
+    border: none;            /* 去掉边框 */
+    border-radius: 4px;      /* 圆角 */
+    cursor: pointer;         /* 鼠标悬停时显示手型 */
+    transition: background 0.3s; /* 背景色变化动画 */
+}
+
+/* 按钮悬停效果 */
+#counter-btn:hover {
+    background: #a777e3;     /* 悬停时变色 */
+}
+
+
+/* 新增：全局容器居中 */
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* 水平居中 */
+    justify-content: center; /* 垂直居中 */
+    min-height: 100vh;   /* 至少占满整个屏幕高度 */
+    padding: 20px;
+}
+
+/* 功德计数器 */
+#count-display {
+    margin-top: 1rem;
+    font-size: 1.2rem;
+    color: #ff6b6b;
+}
+
+
+#muyu-btn {
+    padding: 1rem 2rem;
+    background: #ff6b6b;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: all 0.2s;
+}
+
+#muyu-btn:hover {
+    background: #ff8e8e;
+    transform: scale(1.05);
+}
+
+#muyu-btn:active {
+    transform: scale(0.95);  /* 点击时凹陷效果 */
+}
+
+/* 木鱼容器 */
+.muyu-container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* 木鱼图标（圆形裁剪+阴影） */
+.muyu-icon {
+    width: 150px;       /* 调整大小 */
+    height: 150px;
+    object-fit: contain; /* 保持图像比例 */
+    border-radius: 50%;  /* 圆形裁剪 */
+    background: rgba(255,255,255,0.2); /* 半透明白底（可选） */
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    cursor: pointer;
+    transition: transform 0.3s;
+    position: relative; /* 新增：作为语录定位基准 */
+}
+
+
+.muyu-icon:hover {
+    transform: scale(1.05) rotate(5deg);
+}
+
+.muyu-icon:active {
+    transform: scale(0.95);
+}
+
+/* 语录动画 */
+#quote-container {
+    position: absolute;
+    bottom: 120%;       /* 从图标顶部上方弹出 */
+    left: 50%;
+    transform: translateX(-50%);
+    width: 200px;
+    pointer-events: none; /* 防止遮挡点击 */
+}
+
+.quote {
+    position: absolute;
+    color: #ff8e8e;
+    font-size: 1.3rem;
+    font-weight: bold;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    animation: floatUp 2s forwards;
+    white-space: nowrap;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) scale(0.8);
+        opacity: 0;
+    }
+    20% {
+        opacity: 1;
+        transform: translateY(-20px) scale(1.1);
+    }
+    100% {
+        transform: translateY(-80px) scale(0.9);
+        opacity: 0;
+    }
+}
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.particle-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 10;
+}

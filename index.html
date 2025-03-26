@@ -5,12 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>我的炫酷特效网页</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
 </head>
 <body>
     <div class="container">
-        <h1 class="title">欢迎来到我的网页！</h1>
-        <button id="magic-button">点我触发特效</button>
+        <header>
+        <!-- <h1 class="title">欢迎来到我的网页！</h1> -->
+        <!-- <button id="magic-button"><h1 class="title">欢迎来到我的网页！</h1></button> -->
+        </header>
+        <!--功德计数器-->
+        <div class="muyu-counter">
+            <!-- 木鱼图标 -->
+        <img src="images/muyu.png" id="muyu-icon" class="muyu-icon">
+    
+         <!-- 隐藏的功德计数器 -->
+        <div id="count-display">今日功德：+<span id="count">0</span></div>
+             <!-- 语录容器（定位用） -->
+            <div id="quote-container"></div>
+
+        </div>
     </div>
     <script src="js/script.js"></script>
+    <div id="particles-js"></div>
 </body>
 </html>
