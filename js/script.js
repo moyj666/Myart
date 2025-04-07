@@ -180,3 +180,110 @@ document.getElementById('muyu-icon').addEventListener('click', function(e) {
         rect.top + rect.height / 2
     );
 });
+
+
+// 初始化
+const lanes = [1, 2, 3, 4];
+const carColors = ['#FF5252', '#448AFF', '#FFC107', '#4CAF50'];
+const carTypes = ['sedan', 'truck', 'van'];
+let currentLane = 2;
+const runner = document.querySelector('.runner');
+
+// 确保DOM加载后立即设置
+document.addEventListener('DOMContentLoaded', () => {
+    currentLane = 2;
+    document.querySelector('.runner').style.top = '75px';
+});
+
+// 游戏状态控制
+let isGameOver = false;
+
+// 生成随机车辆
+function spawnCar() {
+    if (isGameOver) return;
+
+    const lane = lanes[Math.floor(Math.random() * 4)];
+    const car = document.createElement('div');
+    car.className = 'car';
+    car.style.top = `${(lane - 1) * 50 + 10}px`; // 10px垂直间距
+    car.style.animationDuration = `${2 + Math.random() * 3}s`;
+    
+    document.querySelector('.road-container').appendChild(car);
+    
+    // 移除超出屏幕的车辆
+    car.addEventListener('animationend', () => car.remove());
+    car.style.background = carColors[Math.floor(Math.random() * 4)];
+    car.classList.add(carTypes[Math.floor(Math.random() * 3)]);
+}
+
+// 每1.5秒生成一辆车
+setInterval(spawnCar, 2000);
+
+// 键盘控制上下换道
+document.addEventListener('keydown', (e) => {
+    if (isGameOver) return;
+
+    if (e.key === 'ArrowUp' && currentLane > 1) {
+        currentLane--;
+        runner.style.top = `${(currentLane - 1) * 50 + 10}px`;
+    }
+    if (e.key === 'ArrowDown' && currentLane < 4) {
+        currentLane++;
+        runner.style.top = `${(currentLane - 1) * 50 + 10}px`;
+    }
+});
+
+// 碰撞检测
+function checkCollision() {
+    if (isGameOver) return;
+    
+    const runnerRect = runner.getBoundingClientRect();
+    document.querySelectorAll('.car').forEach(car => {
+        if (isColliding(car.getBoundingClientRect(), runnerRect)) {
+            isGameOver = true;
+            gameOver();
+        }
+    });
+}
+
+
+function isColliding(carRect, runnerRect) {
+    // 车道范围检测（Y轴±20px为有效碰撞区域）
+    const laneHeight = 50;
+    const runnerLane = Math.floor((runnerRect.top - 5) / laneHeight) + 1;
+    const carLane = Math.floor((carRect.top - 5) / laneHeight) + 1;
+    
+    // 必须在同一车道才检测X轴碰撞
+    if (runnerLane !== carLane) return false;
+    
+    // X轴碰撞检测
+    return !(carRect.right < runnerRect.left || carRect.left > runnerRect.right);
+}
+
+// 游戏结束，重置游戏
+function gameOver() {
+    const gameOverDiv = document.querySelector('.game-over');
+    gameOverDiv.style.display = 'flex';
+    
+    setTimeout(() => {
+        gameOverDiv.style.display = 'none';
+        resetGame();
+    }, 2000);
+}
+
+function resetGame() {
+    isGameOver = false;
+    // 移除所有车辆
+    document.querySelectorAll('.car').forEach(car => car.remove());
+    // 重置玩家位置
+    currentLane = 2;
+    runner.style.top = '75px';
+}
+
+// 初始化游戏
+document.addEventListener('DOMContentLoaded', () => {
+    resetGame();
+    setInterval(spawnCar, 1500);
+    setInterval(checkCollision, 100);
+});
+
